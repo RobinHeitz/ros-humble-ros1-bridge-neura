@@ -1,0 +1,18 @@
+name: Docker Image CI for humble-based ros1 bridge (used for neura robot operating at melodic)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_publish_humble:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build and push the image
+        run: | 
+          docker login --username robinheitz --password ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }} ghcr.io
+          docker build . -f Dockerfile --tag ghcr.io/robinheitz/ros:neura-bridge
+          docker push ghcr.io/robinheitz/ros:neura-bridge
+

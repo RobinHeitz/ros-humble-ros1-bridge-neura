@@ -1,5 +1,13 @@
+#######################################################################################
+# This is a fork from https://github.com/TommyChangUMD/ros-humble-ros1-bridge-builder #
+#######################################################################################
+
 FROM ros:humble-ros-base-jammy
 # The above base image is multi-platfrom (works on ARM64 and AMD64)
+
+# These settings are important
+ENV ROS_MASTER_URI=http://192.168.2.13:11311
+ENV ROS_IP=192.168.2.100
 
 #
 # How to build this docker image:
@@ -89,7 +97,7 @@ RUN mv /root/ros2-latest.list /etc/apt/sources.list.d/
 RUN apt-get -y update
 
 # for ros-humble-example-interfaces:
-ARG ADD_ros_tutorials=1
+ARG ADD_ros_tutorials=0
 
 # for ros-humble-grid-map:
 ARG ADD_grid_map=0
