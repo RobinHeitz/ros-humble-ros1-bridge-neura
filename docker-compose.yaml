@@ -1,0 +1,6 @@
+services:
+  ros2-bridge:
+    image: ghcr.io/robinheitz/ros:neura-bridge
+    # build: .
+    container_name: ros1-bridge-neura
+    network_mode: "bridge"

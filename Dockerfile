@@ -274,5 +274,9 @@ RUN ROS1_LIBS="libxmlrpcpp.so";                                                 
 ###########################
 RUN tar czf /ros-humble-ros1-bridge.tgz \
      --exclude '*/build/*' --exclude '*/src/*' /ros-humble-ros1-bridge 
-ENTRYPOINT []
-CMD cat /ros-humble-ros1-bridge.tgz; sync
+
+RUN cat /ros-humble-ros1-bridge.tgz; sync
+
+COPY ./ros_entrypoint.sh /
+ENTRYPOINT ["/ros_entrypoint.sh"]
+CMD ["ros2", "run", "ros1_bridge", "dynamic_bridge", "--bridge-all-topics"]

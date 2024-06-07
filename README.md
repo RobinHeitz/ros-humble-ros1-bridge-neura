@@ -1,4 +1,40 @@
-# ros-humble-ros1-bridge-builder
+# ros-humble-ros1-bridge-builder (fork from github.com/TommyChangUMD/ros-humble-ros1-bridge-builder.git)
+For further instructions (especially for bridging custom messages), look in the upstream repo.
+
+The goal of this container is that it runs in the background and bridges the communication from ros melodic roscore
+which runs on the neura lara8 robot control.
+
+Therefore, ROS2 can be used to control the robot (using moveit, in theory).
+
+## Run the thing 
+
+**HINT**: It only works in the following setup: 
+Your machine's IP is `192.168.2.100` and you are connected via ethernet to the robot control which has the ip `192.168.2.13`.
+This results in the env variables
+
+    ROS_MASTER_URI=http://192.168.2.13:11311
+    ROS_IP=192.168.2.100
+
+These variables are set so that the container can find the roscore (running on melodic) inside the robot control.
+
+There is an easy way using the provided docker-compose.yaml file. In the terminal, open this directory and:
+
+    docker compose up 
+
+Another way without the docker-comose.yaml file is
+
+    docker run -d --rm ghcr.io/robinheitz/ros:neura-bridge
+
+It spawns the docker image in detached mode. Verify that its running:
+
+    docker ps
+
+You should now be able to see the topic /joint_states
+    
+    ros2 topic echo /joint_states
+
+The following is from the original REAMDE
+----
 Create a "*ros-humble-ros1-bridge*" package that can be used directly within Ubuntu 22.02 ROS2 Humble.
 
 It takes approximately 10 minutes on my PC, equipped with a 6-core CPU (12 logical cores) and 24GB of memory.  
